@@ -1,40 +1,40 @@
 <div align="center">
 
-# LARAVEL WHERE HAS IN
+# Hyperf WHERE HAS IN
 
 <p>
-    <a href="https://github.com/jqhph/laravel-wherehasin/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-7389D8.svg?style=flat" ></a>
-     <a href="https://github.com/jqhph/laravel-wherehasin/actions">
-        <img src="https://github.com/jqhph/laravel-wherehasin/workflows/Phpunit/badge.svg" alt="Build Status">
+    <a href="https://github.com/sllhSmile/wherehasin/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-7389D8.svg?style=flat" ></a>
+     <a href="https://github.com/sllhSmile/wherehasin/actions">
+        <img src="https://github.com/sllhSmile/wherehasin/workflows/Phpunit/badge.svg" alt="Build Status">
     </a>
      <a href="https://styleci.io/repos/215738797">
         <img src="https://github.styleci.io/repos/215738797/shield" alt="StyleCI">
     </a>
-    <a href="https://github.com/jqhph/laravel-wherehasin/releases" ><img src="https://img.shields.io/github/release/jqhph/laravel-wherehasin.svg?color=4099DE" /></a> 
-    <a href="https://packagist.org/packages/dcat/laravel-wherehasin"><img src="https://img.shields.io/packagist/dt/dcat/laravel-wherehasin.svg?color=" /></a> 
+    <a href="https://github.com/sllhSmile/wherehasin/releases" ><img src="https://img.shields.io/github/release/jqhph/laravel-wherehasin.svg?color=4099DE" /></a> 
+    <a href="https://packagist.org/packages/sllhsmile/wherehasin"><img src="https://img.shields.io/packagist/dt/dcat/laravel-wherehasin.svg?color=" /></a> 
     <a><img src="https://img.shields.io/badge/php-7+-59a9f8.svg?style=flat" /></a> 
 </p>
 
 </div>
 
-`Laravel wherehasin`是一个可以提升`Laravel ORM`关联关系查询性能的扩展包，可以替代`Laravel ORM`中的`whereHas`以及`whereHasMorphIn`查询方法。
+`Hyperf wherehasin`是一个可以提升`Hyperf ORM`关联关系查询性能的扩展包，可以替代`Hyperf ORM`中的`whereHas`以及`whereHasMorphIn`查询方法。
 
 
 ## 环境
 
 - PHP >= 7
-- laravel >= 5.5
+- Hyperf >= 3.0
 
 
 ## 安装
 
 ```bash
-composer require dcat/laravel-wherehasin
+  composer require sllhsmile/wherehasin
 ```
 
 ### 简介
 
-`Laravel`的关联关系查询`whereHas`在日常开发中给我们带来了极大的便利，但是在**主表**数据量比较多的时候会有比较严重的性能问题，主要是因为`whereHas`用了`where exists (select * ...)`这种方式去查询关联数据。
+`Hyperf`的关联关系查询`whereHas`在日常开发中给我们带来了极大的便利，但是在**主表**数据量比较多的时候会有比较严重的性能问题，主要是因为`whereHas`用了`where exists (select * ...)`这种方式去查询关联数据。
 
 
 通过这个扩展包提供的`whereHasIn`方法，可以把语句转化为`where id in (select xxx.id ...)`的形式，从而提高查询性能，下面我们来做一个简单的对比：
@@ -84,7 +84,7 @@ whereHasIn 0.027166843414307 秒
 
 #### whereHasIn
 
-此方法已支持`Laravel ORM`中的所有关联关系，可以替代`whereHas`
+此方法已支持`Hyperf ORM`中的所有关联关系，可以替代`whereHas`
 
 ```php
 User::whereHasIn('profile')->get();
@@ -97,7 +97,7 @@ User::whereHasIn('profile', function ($q) {
 orWhereHasIn
 
 ```php
-User::where('name', 'like', '%laravel%')->orWhereHasIn('profile')->get();
+User::where('name', 'like', '%Hyperf%')->orWhereHasIn('profile')->get();
 ```
 
 多级关联关系
@@ -126,13 +126,17 @@ $profiles = Profile::whereHasIn('user')->get();
 
 #### whereHasMorphIn
 
-此方法已支持`Laravel ORM`中的所有关联关系，可以替代`whereHasMorph`
+此方法已支持`Hyperf ORM`中的所有关联关系，可以替代`whereHasMorph`
 
 ```php
 Image::whereHasMorphIn('imageable', Post::class, function ($q) {
     $q->where('id', '>', 10);
 })->get();
 ```
+
+>特别鸣谢
+>https://github.com/jqhph/laravel-wherehasin 
+
 
 ## License
 [The MIT License (MIT)](LICENSE).
