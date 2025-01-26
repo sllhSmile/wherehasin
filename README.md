@@ -7,11 +7,8 @@
      <a href="https://github.com/sllhSmile/wherehasin/actions">
         <img src="https://github.com/sllhSmile/wherehasin/workflows/Phpunit/badge.svg" alt="Build Status">
     </a>
-     <a href="https://styleci.io/repos/215738797">
-        <img src="https://github.styleci.io/repos/215738797/shield" alt="StyleCI">
-    </a>
-    <a href="https://github.com/sllhSmile/wherehasin/releases" ><img src="https://img.shields.io/github/release/jqhph/laravel-wherehasin.svg?color=4099DE" /></a> 
-    <a href="https://packagist.org/packages/sllhsmile/wherehasin"><img src="https://img.shields.io/packagist/dt/dcat/laravel-wherehasin.svg?color=" /></a> 
+    <a href="https://github.com/sllhSmile/wherehasin/releases"><img src="https://img.shields.io/github/v/release/sllhSmile/wherehasin.svg?color=4099DE" /></a> 
+    <a href="https://packagist.org/packages/sllhsmile/wherehasin"><img src="https://img.shields.io/packagist/dt/sllhSmile/wherehasin.svg?color=" /></a> 
     <a><img src="https://img.shields.io/badge/php-7+-59a9f8.svg?style=flat" /></a> 
 </p>
 

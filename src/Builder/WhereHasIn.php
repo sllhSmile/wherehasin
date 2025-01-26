@@ -146,10 +146,7 @@ class WhereHasIn
             );
         }
 
-        if (
-            $relation instanceof HasOneThrough
-            || $relation instanceof HasManyThrough
-        ) {
+        if ($relation instanceof HasOneThrough || $relation instanceof HasManyThrough) {
             return $this->builder->{$method}(
                 $relation->getQualifiedLocalKeyName(),
                 $this->withRelationQueryCallback(
@@ -220,7 +217,7 @@ class WhereHasIn
     }
 
     /**
-     * @param Builder $relation
+     * @param Builder $relationQuery
      *
      * @return Builder
      */
