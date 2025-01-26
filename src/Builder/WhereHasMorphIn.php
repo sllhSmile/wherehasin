@@ -1,8 +1,8 @@
 <?php
 
-namespace Dcat\Laravel\Database\Builder;
+namespace SllhSmile\WhereHasIn\Builder;
 
-use Illuminate\Database\Eloquent\Relations\Relation;
+use Hyperf\Database\Model\Relations\Relation;
 
 class WhereHasMorphIn
 {

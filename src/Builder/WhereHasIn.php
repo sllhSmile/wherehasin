@@ -1,15 +1,24 @@
 <?php
 
-namespace Dcat\Laravel\Database\Builder;
+namespace SllhSmile\WhereHasIn\Builder;
 
-use Illuminate\Database\Eloquent;
-use Illuminate\Database\Eloquent\Relations;
-use Illuminate\Support\Str;
+use Hyperf\Database\Model\Builder;
+use Hyperf\Database\Model\Relations\BelongsTo;
+use Hyperf\Database\Model\Relations\BelongsToMany;
+use Hyperf\Database\Model\Relations\HasMany;
+use Hyperf\Database\Model\Relations\HasManyThrough;
+use Hyperf\Database\Model\Relations\HasOne;
+use Hyperf\Database\Model\Relations\HasOneThrough;
+use Hyperf\Database\Model\Relations\MorphMany;
+use Hyperf\Database\Model\Relations\MorphOne;
+use Hyperf\Database\Model\Relations\MorphTo;
+use Hyperf\Database\Model\Relations\MorphToMany;
+use Hyperf\Database\Model\Relations\Relation;
 
 class WhereHasIn
 {
     /**
-     * @var Eloquent\Builder
+     * @var Builder
      */
     protected $builder;
 
@@ -33,7 +42,7 @@ class WhereHasIn
      */
     protected $method = 'whereIn';
 
-    public function __construct(Eloquent\Builder $builder, $relation, $callback)
+    public function __construct(Builder $builder, $relation, $callback)
     {
         $this->builder = $builder;
         $this->relation = $relation;
@@ -41,7 +50,7 @@ class WhereHasIn
     }
 
     /**
-     * @return Eloquent\Builder
+     * @return Builder
      *
      * @throws \Exception
      */
@@ -57,15 +66,15 @@ class WhereHasIn
     }
 
     /**
-     * @param Relations\Relation $relation
+     * @param Relation $relation
      *
-     * @return Eloquent\Builder
+     * @return Builder
      *
      * @throws \Exception
      */
     protected function where($relation)
     {
-        if ($relation instanceof Relations\MorphTo) {
+        if ($relation instanceof MorphTo) {
             throw new \Exception('Please use whereHasMorphIn() for MorphTo relationships.');
         }
 
@@ -73,8 +82,8 @@ class WhereHasIn
         $method = $this->method;
 
         if (
-            $relation instanceof Relations\MorphOne
-            || $relation instanceof Relations\MorphMany
+            $relation instanceof MorphOne
+            || $relation instanceof MorphMany
         ) {
             return $this->builder->{$method}(
                 $relation->getQualifiedParentKeyName(),
@@ -87,7 +96,7 @@ class WhereHasIn
             );
         }
 
-        if ($relation instanceof Relations\MorphToMany) {
+        if ($relation instanceof MorphToMany) {
             return $this->builder->{$method}(
                 $relation->getQualifiedParentKeyName(),
                 $this->withRelationQueryCallback(
@@ -100,7 +109,7 @@ class WhereHasIn
         }
 
         // BelongsTo
-        if ($relation instanceof Relations\BelongsTo) {
+        if ($relation instanceof BelongsTo) {
             return $this->builder->{$method}(
                 $this->getRelationQualifiedForeignKeyName($relation),
                 $this->withRelationQueryCallback(
@@ -112,8 +121,8 @@ class WhereHasIn
         }
 
         if (
-            $relation instanceof Relations\HasOne
-            || $relation instanceof Relations\HasMany
+            $relation instanceof HasOne
+            || $relation instanceof HasMany
         ) {
             return $this->builder->{$method}(
                 $relation->getQualifiedParentKeyName(),
@@ -126,7 +135,7 @@ class WhereHasIn
         }
 
         // BelongsToMany
-        if ($relation instanceof Relations\BelongsToMany) {
+        if ($relation instanceof BelongsToMany) {
             return $this->builder->{$method}(
                 $relation->getQualifiedParentKeyName(),
                 $this->withRelationQueryCallback(
@@ -138,8 +147,8 @@ class WhereHasIn
         }
 
         if (
-            $relation instanceof Relations\HasOneThrough
-            || $relation instanceof Relations\HasManyThrough
+            $relation instanceof HasOneThrough
+            || $relation instanceof HasManyThrough
         ) {
             return $this->builder->{$method}(
                 $relation->getQualifiedLocalKeyName(),
@@ -155,9 +164,9 @@ class WhereHasIn
     }
 
     /**
-     * @param Relations\Relation $relation
+     * @param Relation $relation
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     protected function getRelationQuery($relation)
     {
@@ -190,7 +199,7 @@ class WhereHasIn
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\Relation
+     * @return Relation
      */
     protected function formatRelation()
     {
@@ -202,7 +211,7 @@ class WhereHasIn
 
             $method = $relationNames[0];
 
-            $relation = Relations\Relation::noConstraints(function () use ($method) {
+            $relation = Relation::noConstraints(function () use ($method) {
                 return $this->builder->getModel()->$method();
             });
         }
@@ -211,9 +220,9 @@ class WhereHasIn
     }
 
     /**
-     * @param Eloquent\Builder $relation
+     * @param Builder $relation
      *
-     * @return Eloquent\Builder
+     * @return Builder
      */
     protected function withRelationQueryCallback($relationQuery)
     {

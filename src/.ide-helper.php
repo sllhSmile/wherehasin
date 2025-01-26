@@ -1,6 +1,6 @@
 <?php
 
-namespace Illuminate\Database\Eloquent
+namespace Hyperf\Database\Model;
 {
     /**
      * @method $this whereHasIn(string $relation, ?\Closure $callable = null)
@@ -10,7 +10,7 @@ namespace Illuminate\Database\Eloquent
      * @method $this whereHasMorphIn(string $relation, $types, ?\Closure $callable = null)
      * @method $this orWhereHasMorphIn(string $relation, $types, ?\Closure $callable = null)
      */
-    class Builder extends \Illuminate\Database\Query\Builder
+    class Builder
     {
     }
 }

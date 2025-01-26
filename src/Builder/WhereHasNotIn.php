@@ -1,6 +1,6 @@
 <?php
 
-namespace Dcat\Laravel\Database\Builder;
+namespace SllhSmile\WhereHasIn\Builder;
 
 class WhereHasNotIn extends WhereHasIn
 {
